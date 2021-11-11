@@ -8,21 +8,27 @@
 #   6) 분석결과를 시각화
 # 만든이: MJ-Kor
 # 일자: 2021.11.09
-
+import math
 import requests
 from bs4 import BeautifulSoup
 import webcrawl.WebCrawlService as wcs
 
 #########################
-# 1.데이터 수집 및 저장 #
+# 1. 데이터 수집 및 저장 #
 #########################
 
-movie_code = '209496'  # 네이버 영화 code
+movie_code = '208530'  # 네이버 영화 code
 
-# 1.제목 수집
+# 1. 제목 수집
 title = wcs.get_movie_title(movie_code)
 print(title)
 
+# 2. 전체 페이지 수 계산
+pages = wcs.calc_pages(movie_code)
+print(pages)
+
+# 3. 리뷰 수집
+wcs.get_reviews(movie_code, pages)
 
 
 
