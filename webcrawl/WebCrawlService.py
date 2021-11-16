@@ -1,4 +1,5 @@
 import math
+import re
 import requests
 from bs4 import BeautifulSoup
 
@@ -18,9 +19,12 @@ def calc_pages(movie_code):
     doc = BeautifulSoup(result.text, 'html.parser')
 
     all_count = doc.select('strong.total > em')[0].get_text().strip()
-    return math.ceil(int(all_count) / 10)
 
-def get_reviews(movie_code, pages):
+    numbers = re.sub(r'[^0-9]','', all_count)   # 필터 작업 all_count의 ,를 제거해줌 ( 0~9가아니면, 바꿀 문자, 대상)
+
+    return math.ceil(int(numbers) / 10)
+
+def get_reviews(movie_code, pages, title):
     count = 0  # Total Review Count
 
     for pages in range(1, pages + 1):
@@ -51,7 +55,7 @@ def get_reviews(movie_code, pages):
             date = original_date[:10]
 
             # yyyy.MM.dd 전처리 코드 작성
-            #print('TITLE: {}'.format(title))
+            print('TITLE: {}'.format(title))
             print('REVIEW: {}'.format(review))
             print('WRITER: {}'.format(writer))
             print('SCORE: {}'.format(score))
