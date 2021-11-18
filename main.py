@@ -19,15 +19,15 @@ import webcrawl.WebCrawlService as wcs
 
 movie_code = '209496'  # 네이버 영화 code
 
-# 1. 제목 수집
+# 1). 제목 수집
 title = wcs.get_movie_title(movie_code)
 print(title)
 
-# 2. 전체 페이지 수 계산
+# 2). 전체 페이지 수 계산
 pages = wcs.calc_pages(movie_code)
 print(pages)
 
-# 3. 리뷰 수집
+# 3). 리뷰 수집
 wcs.get_reviews(movie_code, pages, title)
 
 

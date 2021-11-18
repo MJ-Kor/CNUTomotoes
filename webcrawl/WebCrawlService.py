@@ -2,6 +2,7 @@ import math
 import re
 import requests
 from bs4 import BeautifulSoup
+from model.MongoDAO import add_review
 
 def get_movie_title(movie_code):
     url = 'https://movie.naver.com/movie/bi/mi/basic.naver?code={}'.format(movie_code)
@@ -60,3 +61,13 @@ def get_reviews(movie_code, pages, title):
             print('WRITER: {}'.format(writer))
             print('SCORE: {}'.format(score))
             print('DATE: {}'.format(date))
+
+            # MongoDB는 Dict Type으로 데이터를 CRUD
+            data = {'TITLE' : title,
+                    'REVIEW' : review,
+                    'WRITER' : writer,
+                    'SCORE' : score,
+                    'DATE' : date}
+
+            # MongoDB에 Review 저장
+            add_review(data)
