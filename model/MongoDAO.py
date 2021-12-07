@@ -19,4 +19,8 @@ def add_review(data):  # 한 건씩 등록
 
 # select review data (데이터 조회)
 def get_reviews():  # 모든 데이터 조회
-    pass
+    collection = conn_mongo()   # MongoDB Connection
+    review_list = []
+    for one in collection.find({}, {'_id':0, 'TITLE':1, 'REVIEW':1, 'SCORE':1}):    # 제목, 리뷰, 평점만 DB 조회
+        review_list.append([one['TITLE'], one['REVIEW'], one['SCORE']])
+    return review_list
